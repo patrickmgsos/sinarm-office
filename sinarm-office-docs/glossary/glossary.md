@@ -36,10 +36,11 @@ Artefato juridico versionado, gerado, editado, assinado, anexado ou arquivado.
 
 Template juridico versionado usado para gerar documentos.
 
-## Motor Juridico
+## Legal Automation Engine
 
-Camada de automacao documental composta por modelos versionados, variaveis,
-regras, IA assistiva, revisao humana e historico.
+Camada de automacao juridica composta por modelos versionados, variaveis,
+regras, validacoes, tarefas, IA assistiva, revisao humana, renderizacao e
+historico.
 
 ## Time Machine
 

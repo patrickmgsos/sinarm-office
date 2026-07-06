@@ -14,13 +14,26 @@ uma migration.
 - Campos JSONB apenas quando houver real variabilidade.
 - Indices por chaves estrangeiras e filtros frequentes.
 
+## Estados Operacionais
+
+Entidades juridicamente relevantes devem possuir estado operacional em vez de
+exclusao fisica:
+
+- ativo.
+- inativo.
+- arquivado.
+- cancelado.
+
+Quando necessario, usar `deleted_at` apenas como soft delete tecnico.
+
 ## Indices Candidatos
 
-- `clientes(empresa_id, cpf)`.
-- `clientes(empresa_id, cnpj)`.
+- `clientes(organizacao_id, cpf)`.
+- `clientes(organizacao_id, cnpj)`.
 - `armas(cliente_id)`.
 - `armas(numero_serie)`.
 - `processos(cliente_id, tipo)`.
+- `processos(organizacao_id, tipo_processo_id)`.
 - `processos(etapa_atual_id)`.
 - `workflow_historico(processo_id, criado_em)`.
 - `documentos(processo_id, tipo)`.
@@ -29,10 +42,11 @@ uma migration.
 
 ## Restricoes Candidatas
 
-- CPF unico por empresa quando nao nulo.
-- CNPJ unico por empresa quando nao nulo.
+- CPF unico por organizacao quando nao nulo.
+- CNPJ unico por organizacao quando nao nulo.
 - Numero de serie unico conforme regra aprovada.
-- Apenas uma versao ativa de modelo por tipo e empresa quando aplicavel.
+- Apenas uma versao ativa de modelo por tipo e organizacao quando aplicavel.
+- Auditoria append-only.
 
 ## Decisoes Pendentes
 

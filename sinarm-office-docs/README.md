@@ -25,6 +25,8 @@ sinarm-office-docs/
   erd/
   flows/
   glossary/
+  governance/
+  milestones/
   modules/
   security/
   use-cases/
@@ -50,6 +52,23 @@ DDD, dos casos de uso, dos fluxos, dos diagramas e do modelo de banco.
 - Workflows por tipo de processo.
 - Glossario.
 - Decisoes arquiteturais de produto.
+
+## Sprint 2.5
+
+Modelo conceitual antes de Django Models:
+
+- ERD.
+- Mapa de agregados.
+- Bounded Contexts.
+- Eventos de dominio.
+- Servicos de dominio.
+- Matriz ACL/RBAC.
+
+## Governanca
+
+Os documentos em `governance/` funcionam como a constituicao tecnica do SINARM
+Office: definem como o produto sera construido, evoluido, testado, protegido e
+governado.
 
 ## Ordem de Desenvolvimento
 

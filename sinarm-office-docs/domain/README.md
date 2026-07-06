@@ -43,11 +43,12 @@ que e qual foi a diferenca.
 Textos juridicos nao devem ficar fixos no codigo. Modelos devem ser versionados
 e armazenados no banco, permitindo ativar novas versoes sem deploy.
 
-### Legal Engine
+### Legal Automation Engine
 
 Camada de dominio responsavel por modelos, variaveis, regras, condicoes,
-assistencia por IA, renderizacao DOCX/PDF, versoes e rastreabilidade juridica.
-Ela nao e apenas IA e nao e apenas gerador de documentos.
+assistencia por IA, renderizacao DOCX/PDF, checklists, validacoes, tarefas,
+versoes e rastreabilidade juridica. Ela nao e apenas IA e nao e apenas gerador
+de documentos.
 
 ### Rastreabilidade Total
 
@@ -65,7 +66,7 @@ revisao humana, assinatura, PDF, protocolo, resposta e arquivamento.
 - WORKFLOW.md
 - MODELO.md
 - IA.md
-- LEGAL_ENGINE.md
+- LEGAL_AUTOMATION_ENGINE.md
 - USUARIO.md
 - EMPRESA.md
 - AUDITORIA.md

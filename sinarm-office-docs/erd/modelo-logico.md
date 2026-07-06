@@ -7,18 +7,25 @@ Django.
 
 ## Tabelas Candidatas
 
-- empresas.
+- organizacoes.
 - usuarios.
+- perfis.
 - grupos.
 - permissoes.
+- perfil_permissoes.
+- usuario_perfis.
 - clientes.
 - enderecos.
 - telefones.
 - emails.
+- contatos.
 - armas.
 - calibres.
 - fabricantes.
 - modelos_armas.
+- especies_armas.
+- funcionamentos_armas.
+- tipos_processos.
 - processos.
 - processo_armas.
 - workflows.
@@ -47,9 +54,26 @@ Django.
 
 ## Chaves E Relacoes Iniciais
 
-- `clientes.empresa_id -> empresas.id`.
+- `usuarios.organizacao_id -> organizacoes.id`.
+- `clientes.organizacao_id -> organizacoes.id`.
+- `processos.organizacao_id -> organizacoes.id`.
+- `perfil_permissoes.perfil_id -> perfis.id`.
+- `perfil_permissoes.permissao_id -> permissoes.id`.
+- `usuario_perfis.usuario_id -> usuarios.id`.
+- `usuario_perfis.perfil_id -> perfis.id`.
+- `clientes.organizacao_id -> organizacoes.id`.
+- `enderecos.cliente_id -> clientes.id`.
+- `telefones.cliente_id -> clientes.id`.
+- `emails.cliente_id -> clientes.id`.
+- `contatos.cliente_id -> clientes.id`.
 - `armas.cliente_id -> clientes.id`.
+- `armas.fabricante_id -> fabricantes.id`.
+- `armas.modelo_arma_id -> modelos_armas.id`.
+- `armas.calibre_id -> calibres.id`.
+- `armas.especie_arma_id -> especies_armas.id`.
+- `armas.funcionamento_arma_id -> funcionamentos_armas.id`.
 - `processos.cliente_id -> clientes.id`.
+- `processos.tipo_processo_id -> tipos_processos.id`.
 - `processo_armas.processo_id -> processos.id`.
 - `processo_armas.arma_id -> armas.id`.
 - `workflow_etapas.workflow_id -> workflows.id`.
@@ -68,3 +92,5 @@ Django.
 - Documento preserva versao do modelo usado.
 - Workflow deve ser versionavel.
 - Auditoria deve ser append-only.
+- Organizacao prepara multiempresa.
+- ACL/RBAC deve considerar organizacao, perfil, permissao e contexto.
