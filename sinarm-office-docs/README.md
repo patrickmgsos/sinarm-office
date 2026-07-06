@@ -18,7 +18,9 @@ SINARM Office.
 sinarm-office-docs/
   architecture/
   adr/
+  business/
   database/
+  domain-storytelling/
   diagrams/
   decisions/
   domain/
@@ -28,6 +30,7 @@ sinarm-office-docs/
   governance/
   milestones/
   modules/
+  rules/
   security/
   use-cases/
   workflow/
@@ -37,12 +40,27 @@ sinarm-office-docs/
   changelog/
 ```
 
+## Produto
+
+Nome curto: SINARM Office.
+
+Nome interno arquitetural: SINARM Office Platform (SOP).
+
 ## Fase Atual
 
-Fase 1 documental: modelagem de dominio.
+Fase de descoberta encerrada.
+
+Fase atual: Domain Storytelling / Event Storming, ainda sem PostgreSQL, sem
+Django Models e sem telas.
 
 Nenhum Model Django de negocio deve ser criado antes da aprovacao da modelagem
 DDD, dos casos de uso, dos fluxos, dos diagramas e do modelo de banco.
+
+## Domain Storytelling
+
+Os documentos em `domain-storytelling/` descrevem como aquisicao, renovacao,
+transferencia e porte acontecem no mundo real. Eles revelam eventos, comandos,
+agregados, filas, notificacoes e pontos de auditoria.
 
 ## Sprint 1
 
@@ -63,6 +81,12 @@ Modelo conceitual antes de Django Models:
 - Eventos de dominio.
 - Servicos de dominio.
 - Matriz ACL/RBAC.
+
+## Camada De Negocio
+
+Os documentos em `business/` descrevem como o mundo juridico-operacional
+funciona. Os documentos em `rules/` consolidam regras funcionais que serao
+implementadas futuramente no dominio.
 
 ## Governanca
 

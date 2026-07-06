@@ -1,14 +1,72 @@
 # Roadmap
 
-## Fase 1: Fundacao
+## Fase 0: Infraestrutura
+
+Status: concluida.
+
+- Ambiente virtual.
+- Requirements.
+- Qualidade de codigo.
+- Scaffold backend.
+- Governanca inicial.
+
+## Fase 1: DDD
+
+Status: concluida.
+
+- Dominio.
+- Agregados.
+- Value objects.
+- Eventos.
+- Services.
+- Policies.
+- Factories.
+- Specifications.
+
+## Fase 2: Modelo Conceitual
+
+Status: 95%.
 
 - Decisoes arquiteturais.
-- Estrutura de repositorios.
-- Padroes de desenvolvimento.
-- Modelo inicial de banco.
-- Modulos e contextos delimitados.
+- ERD conceitual.
+- Bounded contexts.
+- ACL/RBAC.
+- Regras funcionais.
+- Documentacao de negocio.
+- Domain Storytelling.
+- Event Storming.
+- Knowledge Base.
+- Compliance.
+- Timeline.
 
-## Fase 2: Nucleo Operacional
+## Fase 2.7: Domain Storytelling
+
+Status: em andamento.
+
+- Aquisicao.
+- Renovacao.
+- Transferencia.
+- Porte.
+- Eventos.
+- Comandos.
+- Agregados revelados.
+- Filas e notificacoes candidatas.
+
+## Fase 3: Modelo Logico PostgreSQL
+
+Status: pendente.
+
+- Tabelas.
+- Campos.
+- Chaves.
+- Indices.
+- Constraints.
+- Soft delete.
+- Auditoria.
+
+## Fase 4: Backend Django
+
+Status: pendente.
 
 - Accounts.
 - Clientes.
@@ -16,16 +74,29 @@
 - Processos.
 - Documentos.
 
-## Fase 3: Produtividade
+## Fase 5: Frontend
+
+Status: pendente.
+
+- Templates.
+- HTMX.
+- Bootstrap.
+- Fluxos operacionais.
+
+## Fase 6: IA
+
+Status: pendente.
 
 - Modelos.
 - IA assistiva.
-- Agenda.
-- Notificacoes.
+- Legal Automation Engine.
+- Revisao humana.
 
-## Fase 4: Gestao
+## Fase 7: Deploy
 
-- Financeiro.
-- Relatorios.
-- Auditoria.
-- Configuracoes avancadas.
+Status: pendente.
+
+- Docker.
+- CI/CD.
+- Backup.
+- Observabilidade.
