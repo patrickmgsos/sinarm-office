@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Django check",
+      "type": "shell",
+      "command": ".venv\\Scripts\\python.exe sinarm-office-backend\\manage.py check",
+      "problemMatcher": []
+    },
+    {
+      "label": "Ruff check backend",
+      "type": "shell",
+      "command": ".venv\\Scripts\\python.exe -m ruff check sinarm-office-backend",
+      "problemMatcher": []
+    },
+    {
+      "label": "Pytest backend",
+      "type": "shell",
+      "command": ".venv\\Scripts\\python.exe -m pytest sinarm-office-backend",
+      "problemMatcher": []
+    }
+  ]
+}

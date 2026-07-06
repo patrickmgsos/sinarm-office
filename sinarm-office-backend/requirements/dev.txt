@@ -1,0 +1,15 @@
+-r base.txt
+-r test.txt
+django-extensions
+ipython
+rich
+watchdog
+black
+ruff
+mypy
+pre-commit
+django-stubs>=5.2,<6.0
+django-stubs-ext>=5.2,<6.0
+types-requests
+mkdocs
+mkdocs-material

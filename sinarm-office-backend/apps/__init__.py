@@ -1,0 +1,1 @@
+"""SINARM Office Django apps."""

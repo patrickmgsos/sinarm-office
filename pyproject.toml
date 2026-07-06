@@ -1,0 +1,47 @@
+[tool.black]
+line-length = 88
+target-version = ["py313"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+src = ["sinarm-office-backend/apps", "sinarm-office-backend/config"]
+extend-exclude = [
+  ".venv",
+  "venv",
+  "media",
+  "staticfiles",
+]
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "I",
+  "B",
+  "UP",
+  "DJ",
+]
+ignore = [
+  "DJ001",
+]
+
+[tool.mypy]
+python_version = "3.13"
+plugins = ["mypy_django_plugin.main"]
+strict = true
+ignore_missing_imports = true
+exclude = [
+  "migrations",
+  ".venv",
+  "venv",
+]
+
+[tool.django-stubs]
+django_settings_module = "config.settings.dev"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+testpaths = ["sinarm-office-backend/tests", "sinarm-office-backend/apps"]
+addopts = "--strict-markers --reuse-db"

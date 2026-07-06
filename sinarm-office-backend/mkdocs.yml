@@ -1,0 +1,6 @@
+site_name: SINARM Office Backend
+site_description: Documentacao tecnica do backend SINARM Office.
+theme:
+  name: material
+nav:
+  - Inicio: README.md
