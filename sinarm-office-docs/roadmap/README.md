@@ -1,5 +1,9 @@
 # Roadmap
 
+## Roadmaps Complementares
+
+- BACKEND_ROADMAP.md
+
 ## Fase 0: Infraestrutura
 
 Status: concluida.

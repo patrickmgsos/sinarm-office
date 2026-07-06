@@ -57,3 +57,19 @@ docker compose up --build
 - workflows
 - ia
 - dashboard
+- core
+- common
+- health
+- identity
+- organization
+- audit
+- configuration
+- notification
+
+## Endpoints Tecnicos
+
+- `GET /health/`: verifica se o processo Django responde.
+- `GET /health/db/`: verifica conexao com o banco principal.
+- `GET /health/redis/`: verifica cache/Redis.
+- `GET /health/celery/`: verifica configuracao Celery.
+- `GET /health/storage/`: verifica storage padrao.

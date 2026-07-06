@@ -15,7 +15,13 @@ def config_bool(name: str, default: bool = False) -> bool:
     return value in {"1", "true", "yes", "y", "on"}
 
 
-SECRET_KEY = config("SECRET_KEY", default="unsafe-dev-secret-key")
+def config_str(name: str, default: str = "") -> str:
+    """Read string environment values and fallback when they are blank."""
+    value = str(config(name, default=default)).strip()
+    return value or default
+
+
+SECRET_KEY = config_str("SECRET_KEY", default="unsafe-dev-secret-key")
 DEBUG = config_bool("DEBUG", default=False)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1", cast=Csv())
 
@@ -40,6 +46,14 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    "apps.common",
+    "apps.core",
+    "apps.health",
+    "apps.identity",
+    "apps.organization",
+    "apps.audit",
+    "apps.configuration",
+    "apps.notification",
     "apps.accounts",
     "apps.clientes",
     "apps.armas",
@@ -171,9 +185,18 @@ CACHES = {
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": (
+                '{"timestamp":"%(asctime)s","level":"%(levelname)s",'
+                '"logger":"%(name)s","message":"%(message)s"}'
+            ),
+        },
+    },
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
+            "formatter": "default",
         },
     },
     "root": {
