@@ -17,3 +17,4 @@ sistema sera construido, evoluido, protegido e mantido.
 - AI_POLICY.md
 - CHANGELOG_POLICY.md
 - RELEASE_POLICY.md
+- BRANCHING_STRATEGY.md

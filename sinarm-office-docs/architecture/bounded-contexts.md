@@ -46,3 +46,16 @@ Eventos auditaveis, trilhas de alteracao e rastreabilidade.
 ### Financeiro
 
 Lancamentos, pagamentos e controle financeiro operacional.
+
+### Knowledge Base
+
+Legislacao, decretos, portarias, jurisprudencia, notas tecnicas, procedimentos
+PF e FAQ.
+
+### Compliance
+
+Validades, retencao, LGPD, revisoes obrigatorias e pendencias.
+
+### Timeline
+
+Linha do tempo de clientes, processos, documentos e eventos operacionais.

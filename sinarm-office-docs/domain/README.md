@@ -78,6 +78,9 @@ revisao humana, assinatura, PDF, protocolo, resposta e arquivamento.
 - FINANCEIRO.md
 - CONFIGURACAO.md
 - PERMISSAO.md
+- KNOWLEDGE_BASE.md
+- COMPLIANCE.md
+- TIMELINE.md
 
 ## Subdiretorios
 
