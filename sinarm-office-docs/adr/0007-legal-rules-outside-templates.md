@@ -18,6 +18,6 @@ auditoria, manutencao e reaproveitamento.
 
 ## Consequencias
 
-- Legal Engine deve resolver regras antes de renderizar.
+- Legal Automation Engine deve resolver regras antes de renderizar.
 - Templates devem receber dados e blocos ja decididos pelo dominio.
 - Mudancas juridicas ficam testaveis e auditaveis.

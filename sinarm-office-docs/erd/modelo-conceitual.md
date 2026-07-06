@@ -7,11 +7,23 @@ tipos fisicos, indices ou detalhes de Django.
 
 ## Entidades Principais
 
-- Empresa.
+- Organizacao.
 - Usuario.
+- Perfil.
+- Permissao.
 - Cliente.
+- Endereco.
+- Telefone.
+- Email.
+- Contato.
 - Arma.
+- Fabricante.
+- ModeloArma.
+- Calibre.
+- EspecieArma.
+- FuncionamentoArma.
 - Processo.
+- TipoProcesso.
 - Workflow.
 - WorkflowEtapa.
 - WorkflowTransicao.
@@ -33,11 +45,24 @@ tipos fisicos, indices ou detalhes de Django.
 
 ```mermaid
 erDiagram
-    EMPRESA ||--o{ USUARIO : possui
-    EMPRESA ||--o{ CLIENTE : atende
+    ORGANIZACAO ||--o{ USUARIO : possui
+    ORGANIZACAO ||--o{ CLIENTE : atende
+    ORGANIZACAO ||--o{ PROCESSO : gerencia
+    USUARIO }o--o{ PERFIL : possui
+    PERFIL }o--o{ PERMISSAO : concede
     CLIENTE ||--o{ ARMA : possui
+    CLIENTE ||--o{ ENDERECO : possui
+    CLIENTE ||--o{ TELEFONE : possui
+    CLIENTE ||--o{ EMAIL : possui
+    CLIENTE ||--o{ CONTATO : possui
     CLIENTE ||--o{ PROCESSO : solicita
+    FABRICANTE ||--o{ MODELO_ARMA : fabrica
+    MODELO_ARMA ||--o{ ARMA : classifica
+    CALIBRE ||--o{ ARMA : define
+    ESPECIE_ARMA ||--o{ ARMA : define
+    FUNCIONAMENTO_ARMA ||--o{ ARMA : define
     ARMA }o--o{ PROCESSO : utilizada_em
+    TIPO_PROCESSO ||--o{ PROCESSO : classifica
     PROCESSO ||--o{ DOCUMENTO : gera
     PROCESSO ||--o{ ANEXO : possui
     PROCESSO ||--o{ WORKFLOW_HISTORICO : percorre
