@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 from decouple import Csv, config
+from django.core.exceptions import ImproperlyConfigured
 
 from .base import *  # noqa: F403
 
 DEBUG = False
 SECRET_KEY = config("SECRET_KEY")
+if not SECRET_KEY:
+    msg = "SECRET_KEY must be configured in production."
+    raise ImproperlyConfigured(msg)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
 SECURE_BROWSER_XSS_FILTER = True

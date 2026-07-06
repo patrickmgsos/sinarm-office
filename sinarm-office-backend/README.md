@@ -57,3 +57,8 @@ docker compose up --build
 - workflows
 - ia
 - dashboard
+- core
+
+## Endpoints Tecnicos
+
+- `GET /health/`: verifica se o processo Django e o banco principal respondem.
