@@ -8,7 +8,7 @@ from apps.core.models import BaseModel
 
 
 def test_base_model_is_abstract_with_uuid_primary_key() -> None:
-    """BaseModel must remain reusable without creating its own table."""
+    """Core should re-export the shared BaseModel foundation."""
     id_field = BaseModel._meta.get_field("id")
 
     assert BaseModel._meta.abstract is True

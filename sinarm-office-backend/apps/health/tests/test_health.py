@@ -1,4 +1,4 @@
-"""Tests for operational health checks."""
+"""Tests for health endpoints."""
 
 from __future__ import annotations
 

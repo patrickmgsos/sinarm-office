@@ -46,7 +46,14 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    "apps.common",
     "apps.core",
+    "apps.health",
+    "apps.identity",
+    "apps.organization",
+    "apps.audit",
+    "apps.configuration",
+    "apps.notification",
     "apps.accounts",
     "apps.clientes",
     "apps.armas",
@@ -180,8 +187,10 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "default": {
-            "format": "[{levelname}] {asctime} {name}: {message}",
-            "style": "{",
+            "format": (
+                '{"timestamp":"%(asctime)s","level":"%(levelname)s",'
+                '"logger":"%(name)s","message":"%(message)s"}'
+            ),
         },
     },
     "handlers": {
