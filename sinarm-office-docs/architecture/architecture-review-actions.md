@@ -3,6 +3,7 @@
 ## A-001: Consolidar `decisions/`
 
 **Origem:** F-001
+**Status:** Resolvida em `docs/architecture-review-fixes`.
 
 Escolher uma das abordagens:
 
@@ -13,6 +14,7 @@ Escolher uma das abordagens:
 ## A-002: Declarar UC001-UC010 Como Fonte Oficial
 
 **Origem:** F-002
+**Status:** Resolvida em `docs/architecture-review-fixes`.
 
 Atualizar `use-cases/README.md` para declarar UC001-UC010 como fonte oficial.
 Arquivos nao numerados devem ser arquivados, renomeados como legado ou
@@ -42,6 +44,7 @@ Atualizar o roadmap para indicar:
 ## A-005: Atualizar ERD Para Knowledge Base, Compliance E Timeline
 
 **Origem:** F-005
+**Status:** Resolvida em `docs/architecture-review-fixes`.
 
 Antes de modelar PostgreSQL, adicionar ao ERD:
 
@@ -57,6 +60,7 @@ Os nomes finais devem ser aprovados na Fase 3.
 ## A-006: Criar Service Do Legal Automation Engine
 
 **Origem:** F-006
+**Status:** Resolvida em `docs/architecture-review-fixes`.
 
 Adicionar `domain/services/LegalAutomationEngine.md` descrevendo entradas,
 saidas, responsabilidades, eventos e invariantes do servico.
@@ -80,6 +84,7 @@ Revisar `architecture/domain-portfolio.md` e
 ## A-008: Restaurar Ou Recriar ADRs 0009 A 0011
 
 **Origem:** F-008
+**Status:** Resolvida em `docs/architecture-review-fixes`.
 
 Confirmar se continuam aprovadas as decisoes:
 

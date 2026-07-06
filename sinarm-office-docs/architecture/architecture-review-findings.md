@@ -3,6 +3,7 @@
 ## F-001: Duplicidade Entre `decisions/` E `adr/`
 
 **Severidade:** Media
+**Status:** Resolvido em `docs/architecture-review-fixes`.
 
 `decisions/ADR-0002-modelos-juridicos-versionados.md` duplica decisoes que ja
 estao formalizadas em:
@@ -15,6 +16,7 @@ Tambem ha risco de confusao porque existe `adr/0002-backend-architecture-style.m
 ## F-002: Casos De Uso Numerados E Nao Numerados Coexistem
 
 **Severidade:** Media
+**Status:** Resolvido em `docs/architecture-review-fixes`.
 
 `use-cases/` possui arquivos antigos nao numerados e arquivos oficiais UC001 a
 UC010. Isso pode gerar duvida sobre qual documento e fonte de verdade.
@@ -38,6 +40,7 @@ storytelling.
 ## F-005: Novos Dominios Ainda Nao Totalmente Refletidos No ERD
 
 **Severidade:** Alta antes da Fase 3
+**Status:** Resolvido em `docs/architecture-review-fixes`.
 
 Knowledge Base, Compliance e Timeline foram adicionados como dominios, mas ainda
 precisam ser refletidos no ERD logico/fisico e no mapeamento DDD antes da
@@ -46,6 +49,7 @@ modelagem PostgreSQL.
 ## F-006: Legal Automation Engine Sem Service De Dominio Proprio
 
 **Severidade:** Media
+**Status:** Resolvido em `docs/architecture-review-fixes`.
 
 Existe `domain/LEGAL_AUTOMATION_ENGINE.md`, mas em `domain/services/` ainda nao
 ha `LegalAutomationEngine.md`. O servico conceitual precisa existir para manter
@@ -62,6 +66,7 @@ entre dominios e bounded contexts.
 ## F-008: ADRs 0009 A 0011 Ausentes Na Main Atual
 
 **Severidade:** Alta se a decisao ainda for valida
+**Status:** Resolvido em `docs/architecture-review-fixes`.
 
 Na main revisada existem ADRs 0012 a 0016, mas nao aparecem ADRs 0009, 0010 e
 0011. Se as decisoes sobre soft delete, auditoria obrigatoria e fluxo

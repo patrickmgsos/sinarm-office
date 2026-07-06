@@ -39,6 +39,12 @@ Quando necessario, usar `deleted_at` apenas como soft delete tecnico.
 - `documentos(processo_id, tipo)`.
 - `documento_versoes(documento_id, versao)`.
 - `auditoria(alvo_tipo, alvo_id, criado_em)`.
+- `knowledge_base_items(tipo, vigencia_inicio)`.
+- `knowledge_base_items(source_id)`.
+- `compliance_checks(processo_id, status)`.
+- `compliance_findings(compliance_check_id, severidade)`.
+- `timeline_events(cliente_id, criado_em)`.
+- `timeline_events(processo_id, criado_em)`.
 
 ## Restricoes Candidatas
 
@@ -47,6 +53,9 @@ Quando necessario, usar `deleted_at` apenas como soft delete tecnico.
 - Numero de serie unico conforme regra aprovada.
 - Apenas uma versao ativa de modelo por tipo e organizacao quando aplicavel.
 - Auditoria append-only.
+- Timeline append-only.
+- Achados de compliance devem apontar para verificacao de origem.
+- Itens de Knowledge Base devem apontar para fonte quando aplicavel.
 
 ## Decisoes Pendentes
 

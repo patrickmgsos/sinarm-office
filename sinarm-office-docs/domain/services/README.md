@@ -6,6 +6,7 @@ unica entidade, mas expressam comportamento relevante do negocio.
 ## Servicos Iniciais
 
 - GeradorDocumentos.
+- LegalAutomationEngine.
 - WorkflowEngine.
 - ValidadorCPF.
 - ValidadorSINARM.

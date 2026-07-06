@@ -12,6 +12,9 @@
 | Documento | Documento | Artefato juridico versionado |
 | Modelo | Modelo | Template juridico versionado |
 | Auditoria | EventoAuditoria | Historico append-only |
+| Knowledge Base | KnowledgeBaseItem | Conhecimento juridico versionavel e pesquisavel |
+| Compliance | ComplianceCheck | Verificacoes de conformidade |
+| Timeline | TimelineEvent | Linha do tempo append-only |
 
 ## Services
 
@@ -32,6 +35,9 @@
 - DocumentoRepository.
 - ModeloRepository.
 - AuditoriaRepository.
+- KnowledgeBaseRepository.
+- ComplianceRepository.
+- TimelineRepository.
 
 ## Eventos
 
