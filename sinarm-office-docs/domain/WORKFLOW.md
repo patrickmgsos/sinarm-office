@@ -18,6 +18,18 @@ gatilhos de auditoria.
 - WorkflowTransicao
 - WorkflowHistorico
 
+## Modelo Conceitual
+
+```text
+Processo
+  -> Workflow
+    -> Etapa
+      -> Transicao
+        -> Historico
+```
+
+Workflow define o caminho permitido. Processo executa esse caminho.
+
 ## Etapas Candidatas
 
 - Cliente cadastrado
@@ -42,6 +54,17 @@ gatilhos de auditoria.
 - Transicoes podem gerar tarefas, notificacoes e auditoria.
 - Fluxos devem ser configuraveis por tipo de processo.
 - Exigencias devem permitir retorno para etapas especificas.
+- Workflow deve ser versionavel quando estiver em uso.
+- Alterar um workflow nao deve corromper processos antigos.
+
+## Eventos De Dominio Candidatos
+
+- WorkflowCriado.
+- WorkflowVersionado.
+- EtapaAdicionada.
+- TransicaoAdicionada.
+- ProcessoMovidoDeEtapa.
+- TransicaoBloqueada.
 
 ## Questoes Em Aberto
 
