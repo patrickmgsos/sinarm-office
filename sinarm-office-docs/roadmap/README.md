@@ -54,7 +54,7 @@ Status: em andamento.
 
 ## Fase 3: Modelo Logico PostgreSQL
 
-Status: pendente.
+Status: em andamento.
 
 - Tabelas.
 - Campos.
@@ -63,6 +63,14 @@ Status: pendente.
 - Constraints.
 - Soft delete.
 - Auditoria.
+- UUID como chave primaria.
+- Avaliacao UUIDv7 com fallback UUIDv4.
+- Classificacao de tabelas por dominio, LGPD, retencao, API e auditoria.
+- Politica de FK com `ON DELETE` e `ON UPDATE`.
+- Convencao de nomes tecnicos em ingles.
+- Reference Data Domain.
+- Integration Domain.
+- Revisao Architecture Review 2.0 antes de Django.
 
 ## Fase 4: Backend Django
 

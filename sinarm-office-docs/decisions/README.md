@@ -1,8 +1,17 @@
 # Decisoes
 
-Decisoes arquiteturais e de produto.
+Historico auxiliar de decisoes e propostas.
 
-## Observacao
+## Fonte Oficial
 
-Este diretorio usa a nomenclatura solicitada para a Sprint 1. O diretorio
-`adr/` permanece como historico formal de ADRs sequenciais do projeto.
+O diretorio `adr/` e a fonte oficial de Architecture Decision Records do
+SINARM Office.
+
+Documentos neste diretorio sao considerados material historico, rascunho ou
+apoio. Quando houver conflito entre `decisions/` e `adr/`, prevalece `adr/`.
+
+## Mapeamento Atual
+
+- `ADR-0002-modelos-juridicos-versionados.md` foi consolidado conceitualmente em:
+  - `../adr/0005-legal-template-engine.md`
+  - `../adr/0006-document-versioning-required.md`

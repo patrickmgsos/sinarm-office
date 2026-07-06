@@ -44,6 +44,12 @@ Django.
 - logs.
 - ia_prompts.
 - ia_execucoes.
+- knowledge_base_items.
+- knowledge_base_sources.
+- compliance_checks.
+- compliance_findings.
+- retention_policies.
+- timeline_events.
 - agenda.
 - tarefas.
 - financeiro.
@@ -83,6 +89,13 @@ Django.
 - `documentos.modelo_versao_id -> documento_modelo_versoes.id`.
 - `documento_versoes.documento_id -> documentos.id`.
 - `ia_execucoes.documento_id -> documentos.id`.
+- `knowledge_base_items.source_id -> knowledge_base_sources.id`.
+- `compliance_checks.processo_id -> processos.id`.
+- `compliance_checks.documento_id -> documentos.id`.
+- `compliance_findings.compliance_check_id -> compliance_checks.id`.
+- `timeline_events.cliente_id -> clientes.id`.
+- `timeline_events.processo_id -> processos.id`.
+- `timeline_events.documento_id -> documentos.id`.
 - `auditoria.usuario_id -> usuarios.id`.
 
 ## Regras Logicas
@@ -92,5 +105,8 @@ Django.
 - Documento preserva versao do modelo usado.
 - Workflow deve ser versionavel.
 - Auditoria deve ser append-only.
+- Timeline deve ser append-only.
 - Organizacao prepara multiempresa.
 - ACL/RBAC deve considerar organizacao, perfil, permissao e contexto.
+- Knowledge Base deve preservar fonte e vigencia quando aplicavel.
+- Compliance deve registrar verificacoes e achados auditaveis.

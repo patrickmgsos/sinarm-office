@@ -18,3 +18,4 @@ sistema sera construido, evoluido, protegido e mantido.
 - CHANGELOG_POLICY.md
 - RELEASE_POLICY.md
 - BRANCHING_STRATEGY.md
+- DOCUMENTATION_FREEZE_POLICY.md

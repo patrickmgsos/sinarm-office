@@ -82,6 +82,16 @@ Modelo conceitual antes de Django Models:
 - Servicos de dominio.
 - Matriz ACL/RBAC.
 
+## Sprint PostgreSQL Logical Model
+
+Os documentos em `database/postgresql/` projetam o banco de dados antes de
+qualquer `models.py`:
+
+- Catalogo de tabelas por dominio.
+- Estrategia de indices.
+- Regras de integridade.
+- Checklist da Architecture Review 2.0.
+
 ## Camada De Negocio
 
 Os documentos em `business/` descrevem como o mundo juridico-operacional

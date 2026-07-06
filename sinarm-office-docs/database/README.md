@@ -23,3 +23,8 @@ a tarefas assincronas com Celery.
 - Estrategia de backup e restore.
 - Politica de retencao conforme LGPD.
 - Classificacao de dados sensiveis.
+
+## PostgreSQL
+
+O diretorio `postgresql/` contem a Sprint PostgreSQL Logical Model, ainda sem
+Django Models e sem migrations.
