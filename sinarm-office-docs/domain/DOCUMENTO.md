@@ -41,6 +41,8 @@ revisao e relacao com processo, cliente e usuario.
 - Documento final deve preservar versao do modelo usado.
 - Alteracoes em documentos sensiveis devem gerar versao.
 - Documento excluido logicamente deve preservar trilha de auditoria.
+- Documento pode ser gerado, editado, revisado, assinado e arquivado.
+- Documento nao e apenas PDF; ele e um artefato juridico versionado.
 
 ## Time Machine
 

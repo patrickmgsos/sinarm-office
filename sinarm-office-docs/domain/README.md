@@ -20,6 +20,9 @@ de dominio, casos de uso, fluxos, diagramas e modelo de banco.
 - IA
 - Notificacoes
 - Empresas e Usuarios
+- Agenda e Tarefas
+- Financeiro
+- Configuracoes
 
 ## Diferenciais Do Produto
 
@@ -40,14 +43,45 @@ que e qual foi a diferenca.
 Textos juridicos nao devem ficar fixos no codigo. Modelos devem ser versionados
 e armazenados no banco, permitindo ativar novas versoes sem deploy.
 
+### Legal Engine
+
+Camada de dominio responsavel por modelos, variaveis, regras, condicoes,
+assistencia por IA, renderizacao DOCX/PDF, versoes e rastreabilidade juridica.
+Ela nao e apenas IA e nao e apenas gerador de documentos.
+
+### Rastreabilidade Total
+
+Toda etapa juridicamente relevante deve ser preservada: modelo, versao, IA,
+revisao humana, assinatura, PDF, protocolo, resposta e arquivamento.
+
 ## Arquivos
 
+- AGREGADOS.md
+- VALUE_OBJECTS.md
 - CLIENTE.md
 - ARMA.md
 - PROCESSO.md
 - DOCUMENTO.md
 - WORKFLOW.md
+- MODELO.md
+- IA.md
+- LEGAL_ENGINE.md
 - USUARIO.md
 - EMPRESA.md
 - AUDITORIA.md
 - NOTIFICACAO.md
+- ANEXO.md
+- CERTIDAO.md
+- AGENDA.md
+- TAREFA.md
+- FINANCEIRO.md
+- CONFIGURACAO.md
+- PERMISSAO.md
+
+## Subdiretorios
+
+- events/
+- services/
+- policies/
+- factories/
+- specifications/

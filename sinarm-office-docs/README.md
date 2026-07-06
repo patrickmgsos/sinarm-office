@@ -20,11 +20,15 @@ sinarm-office-docs/
   adr/
   database/
   diagrams/
+  decisions/
   domain/
+  erd/
   flows/
+  glossary/
   modules/
   security/
   use-cases/
+  workflow/
   user-manual/
   developer-manual/
   roadmap/
@@ -37,6 +41,15 @@ Fase 1 documental: modelagem de dominio.
 
 Nenhum Model Django de negocio deve ser criado antes da aprovacao da modelagem
 DDD, dos casos de uso, dos fluxos, dos diagramas e do modelo de banco.
+
+## Sprint 1
+
+- Dominio DDD.
+- Casos de uso UC001-UC010.
+- ERD conceitual, logico e fisico.
+- Workflows por tipo de processo.
+- Glossario.
+- Decisoes arquiteturais de produto.
 
 ## Ordem de Desenvolvimento
 

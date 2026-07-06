@@ -1,56 +1,115 @@
 # Processo
 
-## Proposito
+## Descricao
 
-Representa o caso administrativo conduzido perante a Policia Federal ou outra
-autoridade competente.
+Processo representa o caso administrativo conduzido para um cliente perante a
+Policia Federal ou autoridade competente. E o coracao operacional do SINARM
+Office.
 
-## Agregado Candidato
+## Tipo DDD
 
-Processo e candidato a agregado central. Ele coordena cliente, armas envolvidas,
-workflow, documentos, anexos, tarefas, prazos, exigencias e resultado.
+Agregado central.
+
+Processo coordena cliente, armas utilizadas, workflow, documentos, anexos,
+certidoes, tarefas, prazos, auditoria e resultado.
 
 ## Identidade
 
-- `processo_id`
-- numero interno
-- numero de protocolo externo quando existir
+- `processo_id`.
+- Numero interno.
+- Numero de protocolo externo quando existir.
 
-## Tipos Candidatos
+## Tipos De Processo
 
-- Aquisicao
-- Renovacao
-- Transferencia
-- Porte
-- Registro
-- Recurso
-- Resposta a exigencia
+- Aquisicao.
+- Renovacao.
+- Transferencia.
+- Porte.
+- Recurso.
+- Exigencia.
+
+## Responsabilidades
+
+- Registrar o procedimento administrativo.
+- Controlar workflow e etapa atual.
+- Associar armas utilizadas.
+- Controlar documentos e anexos.
+- Preservar historico.
+- Gerar tarefas e notificacoes.
+- Registrar protocolos e resultados.
+- Garantir rastreabilidade operacional.
+
+## Atributos Candidatos
+
+- Tipo.
+- Cliente.
+- Responsavel interno.
+- Workflow.
+- Etapa atual.
+- Data de abertura.
+- Data de protocolo.
+- Numero de protocolo.
+- Resultado.
+- Data de encerramento.
+- Motivo de arquivamento.
+- Observacoes internas.
 
 ## Relacionamentos
 
-- Processo pertence a um cliente.
-- Processo pode envolver uma ou mais armas.
-- Processo percorre um workflow.
-- Processo gera documentos.
-- Processo possui movimentacoes, prazos, tarefas e anexos.
+- 1 Processo pertence a 1 Cliente.
+- 1 Processo utiliza N Armas do cliente.
+- 1 Processo possui 1 Workflow.
+- 1 Processo possui N Documentos.
+- 1 Processo possui N Anexos.
+- 1 Processo possui N Tarefas.
+- 1 Processo possui N Notificacoes.
+- 1 Processo possui N eventos de Auditoria.
+- 1 Processo possui N registros de WorkflowHistorico.
 
-## Regras Iniciais
+## Regras De Negocio
 
 - Processo nao deve depender apenas de um campo `status`.
-- Toda mudanca de etapa deve gerar historico.
-- Etapas criticas devem exigir usuario, data, motivo e, quando aplicavel,
-  documentos associados.
-- Processo arquivado deve permanecer consultavel.
+- Processo deve estar sempre em uma etapa valida do workflow.
+- Toda transicao deve gerar historico.
+- Transicao deve respeitar regras do workflow.
+- Processo arquivado permanece consultavel.
+- Processo com pendencias criticas nao deve avancar sem justificativa ou regra
+  explicita.
+- Processo de renovacao deve usar arma ja vinculada ao cliente.
+- Processo pode envolver uma ou mais armas quando a regra juridica permitir.
 
-## Invariantes Candidatas
+## Validacoes
 
-- Um processo deve ter cliente.
-- Um processo deve ter tipo.
-- Um processo deve estar sempre em uma etapa valida do workflow.
-- Uma transicao de etapa deve respeitar as transicoes permitidas.
+- Cliente obrigatorio.
+- Tipo de processo obrigatorio.
+- Responsavel obrigatorio.
+- Workflow obrigatorio.
+- Etapa inicial obrigatoria.
+- Armas obrigatorias quando o tipo de processo exigir.
+- Protocolo externo deve ter data quando informado.
+
+## Eventos De Dominio Candidatos
+
+- ProcessoAberto.
+- ProcessoWorkflowAlterado.
+- ProcessoProtocolado.
+- ExigenciaRegistrada.
+- ExigenciaRespondida.
+- DocumentoGeradoParaProcesso.
+- ProcessoDeferido.
+- ProcessoIndeferido.
+- ProcessoArquivado.
+
+## Invariantes
+
+- Processo sempre possui cliente.
+- Processo sempre possui tipo.
+- Processo sempre possui etapa atual.
+- Etapa atual deve pertencer ao workflow do processo.
+- Transicoes devem ser registradas no historico.
 
 ## Questoes Em Aberto
 
-- Um processo pode ter varios protocolos externos?
-- Como tratar processos com exigencias multiplas?
-- Como modelar indeferimento, recurso e reaproveitamento documental?
+- Um processo pode ter mais de um protocolo externo?
+- Como modelar recurso vinculado a indeferimento?
+- Exigencia e um tipo de processo, uma etapa ou ambos?
