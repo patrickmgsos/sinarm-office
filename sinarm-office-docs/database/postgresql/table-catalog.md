@@ -94,15 +94,45 @@ migrations.
 
 - Finalidade: trilha oficial de auditoria.
 - PK: `id uuid`.
-- Colunas: `organization_id uuid`, `actor_id uuid`, `event_type text not null`,
-  `entity_type text not null`, `entity_id uuid`, `action text not null`,
-  `occurred_at timestamptz not null`, `metadata jsonb`, `before_data jsonb`,
-  `after_data jsonb`, `ip_address inet`, `user_agent text`.
+- Colunas: `organization_id uuid`, `actor_id uuid`, `event_type_id uuid`,
+  `audit_session_id uuid`, `event_type text not null`, `entity_type text not null`,
+  `entity_id uuid`, `action text not null`, `occurred_at timestamptz not null`,
+  `metadata jsonb`, `before_data jsonb`, `after_data jsonb`, `ip_address inet`,
+  `user_agent text`.
 - Constraints: `event_type <> ''`, `action <> ''`.
-- FKs: `organization_id -> organizations.id`, `actor_id -> users.id`.
+- FKs: `organization_id -> organizations.id`, `actor_id -> users.id`,
+  `event_type_id -> audit_event_types.id`,
+  `audit_session_id -> audit_sessions.id`.
 - Indices: `(entity_type, entity_id)`, `actor_id`, `occurred_at`, `action`.
 - Arquivamento: append-only, sem soft delete.
 - Justificativa: auditoria desacoplada das tabelas operacionais.
+
+### audit_event_types
+
+- Finalidade: catalogar eventos auditaveis como cliente criado, documento
+  revisado, workflow alterado e processo protocolado.
+- PK: `id uuid`.
+- Colunas: `code text not null`, `name text not null`, `description text`,
+  `severity text`, `is_active boolean not null`, `created_at timestamptz not null`.
+- Constraints: `unique(code)`, severidade controlada quando informada.
+- FKs: nenhuma.
+- Indices: `code`, `is_active`.
+- Arquivamento: `is_active`.
+- Justificativa: evita strings soltas e padroniza relatorios de auditoria.
+
+### audit_sessions
+
+- Finalidade: registrar contexto de sessao ou operacao que originou eventos de
+  auditoria.
+- PK: `id uuid`.
+- Colunas: `organization_id uuid`, `actor_id uuid`, `started_at timestamptz not null`,
+  `ended_at timestamptz`, `ip_address inet`, `user_agent text`,
+  `auth_method text`, `metadata jsonb`.
+- Constraints: `ended_at >= started_at` quando informado.
+- FKs: `organization_id -> organizations.id`, `actor_id -> users.id`.
+- Indices: `actor_id, started_at`, `organization_id, started_at`.
+- Arquivamento: append-only, com retencao definida por politica.
+- Justificativa: permite correlacionar acoes, login, origem e eventos.
 
 ### notifications
 
@@ -580,3 +610,146 @@ migrations.
 - Indices: `target_type`, `status`.
 - Arquivamento: status.
 - Justificativa: LGPD e governanca documental.
+
+## Reference Data Domain
+
+### countries
+
+- Finalidade: catalogo de paises para enderecos, fabricantes e referencias.
+- PK: `id uuid`.
+- Colunas: `name text not null`, `iso_code char(2)`, `is_active boolean not null`.
+- Constraints: `unique(iso_code)` quando informado.
+- FKs: nenhuma.
+- Indices: `name`, `iso_code`.
+- Arquivamento: `is_active`.
+- Justificativa: evita duplicidade textual e prepara filtros.
+
+### states
+
+- Finalidade: catalogo de estados/unidades federativas.
+- PK: `id uuid`.
+- Colunas: `country_id uuid not null`, `name text not null`, `code text not null`,
+  `is_active boolean not null`.
+- Constraints: `unique(country_id, code)`.
+- FKs: `country_id -> countries.id`.
+- Indices: `country_id`, `code`.
+- Arquivamento: `is_active`.
+- Justificativa: normaliza UF sem hardcode.
+
+### cities
+
+- Finalidade: catalogo de cidades.
+- PK: `id uuid`.
+- Colunas: `state_id uuid not null`, `name text not null`,
+  `ibge_code text`, `is_active boolean not null`.
+- Constraints: `unique(state_id, name)`, `unique(ibge_code)` quando informado.
+- FKs: `state_id -> states.id`.
+- Indices: `state_id`, `name`, `ibge_code`.
+- Arquivamento: `is_active`.
+- Justificativa: melhora consistencia de endereco e relatorios.
+
+### document_types
+
+- Finalidade: catalogar tipos de documentos pessoais, juridicos e operacionais.
+- PK: `id uuid`.
+- Colunas: `code text not null`, `name text not null`, `category text not null`,
+  `is_active boolean not null`.
+- Constraints: `unique(code)`.
+- FKs: nenhuma.
+- Indices: `category`, `is_active`.
+- Arquivamento: `is_active`.
+- Justificativa: substitui tipos fixos em codigo.
+
+### case_types
+
+- Finalidade: catalogar tipos de processo como aquisicao, renovacao,
+  transferencia, porte, recurso e exigencia.
+- PK: `id uuid`.
+- Colunas: `code text not null`, `name text not null`, `description text`,
+  `is_active boolean not null`.
+- Constraints: `unique(code)`.
+- FKs: nenhuma.
+- Indices: `code`, `is_active`.
+- Arquivamento: `is_active`.
+- Justificativa: permite evoluir tipos sem alterar Python.
+
+### workflow_types
+
+- Finalidade: classificar workflows por familia de processo ou finalidade.
+- PK: `id uuid`.
+- Colunas: `code text not null`, `name text not null`, `description text`,
+  `is_active boolean not null`.
+- Constraints: `unique(code)`.
+- FKs: nenhuma.
+- Indices: `code`, `is_active`.
+- Arquivamento: `is_active`.
+- Justificativa: separa definicao do fluxo de sua classificacao.
+
+### status_types
+
+- Finalidade: catalogar status permitidos por dominio sem congelar valores no
+  codigo.
+- PK: `id uuid`.
+- Colunas: `domain text not null`, `code text not null`, `name text not null`,
+  `is_terminal boolean not null`, `is_active boolean not null`.
+- Constraints: `unique(domain, code)`.
+- FKs: nenhuma.
+- Indices: `domain`, `code`, `is_active`.
+- Arquivamento: `is_active`.
+- Justificativa: padroniza estados operacionais e facilita governanca.
+
+## Integration Domain
+
+### integration_endpoints
+
+- Finalidade: registrar sistemas externos integrados, como e-mail, WhatsApp,
+  assinatura digital, provedores de IA e APIs futuras.
+- PK: `id uuid`.
+- Colunas: `organization_id uuid`, `name text not null`, `provider text not null`,
+  `base_url text`, `status text not null`, `created_at timestamptz not null`,
+  `updated_at timestamptz`.
+- Constraints: `unique(organization_id, provider, name)`.
+- FKs: `organization_id -> organizations.id`.
+- Indices: `provider`, `status`, `organization_id`.
+- Arquivamento: status.
+- Justificativa: integracoes passam por adaptadores e configuracao explicita.
+
+### integration_credentials
+
+- Finalidade: armazenar referencia segura a credenciais externas.
+- PK: `id uuid`.
+- Colunas: `endpoint_id uuid not null`, `credential_name text not null`,
+  `secret_reference text not null`, `status text not null`,
+  `created_at timestamptz not null`, `rotated_at timestamptz`.
+- Constraints: `unique(endpoint_id, credential_name)`.
+- FKs: `endpoint_id -> integration_endpoints.id`.
+- Indices: `endpoint_id`, `status`.
+- Arquivamento: status.
+- Justificativa: banco guarda referencia/metadata, nao segredo em texto puro.
+
+### integration_jobs
+
+- Finalidade: representar trabalhos de integracao agendados ou assincronos.
+- PK: `id uuid`.
+- Colunas: `endpoint_id uuid not null`, `job_type text not null`,
+  `status text not null`, `scheduled_at timestamptz`, `started_at timestamptz`,
+  `finished_at timestamptz`, `payload jsonb`, `created_at timestamptz not null`.
+- Constraints: `finished_at >= started_at` quando ambos existirem.
+- FKs: `endpoint_id -> integration_endpoints.id`.
+- Indices: `endpoint_id`, `status, scheduled_at`.
+- Arquivamento: status.
+- Justificativa: integracoes longas precisam de rastreabilidade operacional.
+
+### integration_logs
+
+- Finalidade: registrar chamadas, respostas e falhas de integracao.
+- PK: `id uuid`.
+- Colunas: `endpoint_id uuid not null`, `job_id uuid`, `direction text not null`,
+  `status_code integer`, `request_metadata jsonb`, `response_metadata jsonb`,
+  `error_message text`, `occurred_at timestamptz not null`.
+- Constraints: direction controlado.
+- FKs: `endpoint_id -> integration_endpoints.id`,
+  `job_id -> integration_jobs.id`.
+- Indices: `endpoint_id, occurred_at`, `job_id`, `status_code`.
+- Arquivamento: append-only com retencao definida.
+- Justificativa: diagnostico sem acoplar dominio a fornecedores externos.
