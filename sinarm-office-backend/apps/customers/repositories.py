@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import uuid
 
-from apps.customers.models import Customer
+from apps.customers.models import Customer, CustomerAddress
+from apps.reference_data.models import City, Country, State
 
 
 class CustomerRepository:
@@ -47,3 +48,42 @@ class CustomerRepository:
         """Persist changes to an existing customer aggregate."""
         customer.save(update_fields=update_fields)
         return customer
+
+    def create_address(
+        self,
+        *,
+        customer: Customer,
+        address_type: str,
+        street: str,
+        number: str = "",
+        complement: str = "",
+        district: str = "",
+        postal_code: str = "",
+        country: Country | None = None,
+        state: State | None = None,
+        city: City | None = None,
+        notes: str = "",
+        is_primary: bool = False,
+    ) -> CustomerAddress:
+        """Persist a customer address within the aggregate."""
+        return CustomerAddress.objects.create(
+            customer=customer,
+            address_type=address_type,
+            street=street,
+            number=number,
+            complement=complement,
+            district=district,
+            postal_code=postal_code,
+            country=country,
+            state=state,
+            city=city,
+            notes=notes,
+            is_primary=is_primary,
+        )
+
+    def clear_primary_addresses(self, *, customer: Customer) -> None:
+        """Mark existing customer addresses as non-primary."""
+        CustomerAddress.objects.filter(
+            customer=customer,
+            is_primary=True,
+        ).update(is_primary=False)
