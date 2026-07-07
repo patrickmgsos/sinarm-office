@@ -1,0 +1,139 @@
+"""Query helpers for firearm reference data."""
+
+from __future__ import annotations
+
+import uuid
+
+from django.db.models import QuerySet
+
+from apps.common.models import ArchivableModel
+from apps.reference_data.models import (
+    Caliber,
+    CaseType,
+    City,
+    Country,
+    DocumentType,
+    FirearmModel,
+    Manufacturer,
+    State,
+    StatusType,
+    WorkflowType,
+)
+
+
+def manufacturers_active() -> QuerySet[Manufacturer]:
+    """Return active manufacturers ordered by name."""
+    return Manufacturer.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def calibers_active() -> QuerySet[Caliber]:
+    """Return active calibers ordered by name."""
+    return Caliber.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def firearm_models_active() -> QuerySet[FirearmModel]:
+    """Return active firearm models with reference relationships loaded."""
+    return (
+        FirearmModel.objects.filter(status=ArchivableModel.ArchiveStatus.ACTIVE)
+        .select_related("manufacturer", "caliber")
+        .order_by("manufacturer__name", "name")
+    )
+
+
+def firearm_models_for_manufacturer(
+    *,
+    manufacturer_id: uuid.UUID,
+    active_only: bool = True,
+) -> QuerySet[FirearmModel]:
+    """Return firearm models for a manufacturer."""
+    queryset = FirearmModel.objects.filter(
+        manufacturer_id=manufacturer_id,
+    ).select_related("manufacturer", "caliber")
+    if active_only:
+        queryset = queryset.filter(status=ArchivableModel.ArchiveStatus.ACTIVE)
+
+    return queryset.order_by("name")
+
+
+def firearm_models_for_caliber(
+    *,
+    caliber_id: uuid.UUID,
+    active_only: bool = True,
+) -> QuerySet[FirearmModel]:
+    """Return firearm models for a caliber."""
+    queryset = FirearmModel.objects.filter(caliber_id=caliber_id).select_related(
+        "manufacturer",
+        "caliber",
+    )
+    if active_only:
+        queryset = queryset.filter(status=ArchivableModel.ArchiveStatus.ACTIVE)
+
+    return queryset.order_by("manufacturer__name", "name")
+
+
+def countries_active() -> QuerySet[Country]:
+    """Return active countries ordered by name."""
+    return Country.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def states_for_country(
+    *,
+    country_id: uuid.UUID,
+    active_only: bool = True,
+) -> QuerySet[State]:
+    """Return states for a country."""
+    queryset = State.objects.filter(country_id=country_id).select_related("country")
+    if active_only:
+        queryset = queryset.filter(status=ArchivableModel.ArchiveStatus.ACTIVE)
+
+    return queryset.order_by("name")
+
+
+def cities_for_state(
+    *,
+    state_id: uuid.UUID,
+    active_only: bool = True,
+) -> QuerySet[City]:
+    """Return cities for a state."""
+    queryset = City.objects.filter(state_id=state_id).select_related(
+        "state",
+        "state__country",
+    )
+    if active_only:
+        queryset = queryset.filter(status=ArchivableModel.ArchiveStatus.ACTIVE)
+
+    return queryset.order_by("name")
+
+
+def case_types_active() -> QuerySet[CaseType]:
+    """Return active case type reference records."""
+    return CaseType.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def document_types_active() -> QuerySet[DocumentType]:
+    """Return active document type reference records."""
+    return DocumentType.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def workflow_types_active() -> QuerySet[WorkflowType]:
+    """Return active workflow type reference records."""
+    return WorkflowType.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def status_types_active() -> QuerySet[StatusType]:
+    """Return active status type reference records."""
+    return StatusType.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
