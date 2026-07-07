@@ -13,3 +13,11 @@ def customers_active() -> QuerySet[Customer]:
     return Customer.objects.filter(
         status=ArchivableModel.ArchiveStatus.ACTIVE,
     ).order_by("name")
+
+
+def customer_by_cpf(*, cpf: str) -> Customer | None:
+    """Return an individual customer by normalized CPF."""
+    return Customer.objects.filter(
+        document_type=Customer.DocumentType.CPF,
+        document_number=cpf,
+    ).first()

@@ -29,3 +29,10 @@ class CustomerRepository:
     def exists_by_document_number(self, *, document_number: str) -> bool:
         """Return whether a customer exists with the document number."""
         return Customer.objects.filter(document_number=document_number).exists()
+
+    def find_by_cpf(self, *, cpf: str) -> Customer | None:
+        """Return an individual customer by CPF, when registered."""
+        return Customer.objects.filter(
+            document_type=Customer.DocumentType.CPF,
+            document_number=cpf,
+        ).first()
