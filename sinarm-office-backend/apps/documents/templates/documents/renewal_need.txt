@@ -1,0 +1,7 @@
+DECLARACAO DE EFETIVA NECESSIDADE PARA RENOVACAO
+
+Eu, {{ customer.name }}, inscrito(a) no CPF/CNPJ {{ customer.document_number }}, declaro para os devidos fins a efetiva necessidade de renovacao de registro junto ao SINARM.
+
+Processo: {% if case %}{{ case }}{% else %}nao informado{% endif %}
+
+Data: {{ today }}

@@ -69,20 +69,27 @@ Implementar dados de referencia reutilizaveis:
 
 Status: pendente.
 
-Primeiro dominio de negocio:
+Primeiro dominio de negocio, em escopo controlado:
 
 - Customer.
-- Customer Address.
-- Customer Contact.
-- Customer Email.
-- Customer Phone.
+- Caso de uso Register New Customer.
+- Customer como Aggregate Root.
+- UUID como identidade.
+- CPF unico e indexado, mas nunca como chave natural.
 
 Fora de escopo nesta fase:
 
+- Customer Address.
+- Customer Contact.
+- Customer Document.
+- Customer Tag.
+- Customer Timeline.
 - Processos.
 - Armas.
 - Documentos.
 - Workflow juridico.
+- CRUD generico.
+- `GenericForeignKey`.
 
 ## Backend 5: Firearms Domain
 

@@ -1,0 +1,1 @@
+"""Case MVP tests package."""

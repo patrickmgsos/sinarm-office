@@ -1,0 +1,1 @@
+"""Firearm MVP domain package."""
