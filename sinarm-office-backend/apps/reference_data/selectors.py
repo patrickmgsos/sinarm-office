@@ -9,11 +9,15 @@ from django.db.models import QuerySet
 from apps.common.models import ArchivableModel
 from apps.reference_data.models import (
     Caliber,
+    CaseType,
     City,
     Country,
+    DocumentType,
     FirearmModel,
     Manufacturer,
     State,
+    StatusType,
+    WorkflowType,
 )
 
 
@@ -105,3 +109,31 @@ def cities_for_state(
         queryset = queryset.filter(status=ArchivableModel.ArchiveStatus.ACTIVE)
 
     return queryset.order_by("name")
+
+
+def case_types_active() -> QuerySet[CaseType]:
+    """Return active case type reference records."""
+    return CaseType.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def document_types_active() -> QuerySet[DocumentType]:
+    """Return active document type reference records."""
+    return DocumentType.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def workflow_types_active() -> QuerySet[WorkflowType]:
+    """Return active workflow type reference records."""
+    return WorkflowType.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def status_types_active() -> QuerySet[StatusType]:
+    """Return active status type reference records."""
+    return StatusType.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")

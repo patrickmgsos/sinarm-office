@@ -8,11 +8,15 @@ from django.contrib import admin
 
 from apps.reference_data.models import (
     Caliber,
+    CaseType,
     City,
     Country,
+    DocumentType,
     FirearmModel,
     Manufacturer,
     State,
+    StatusType,
+    WorkflowType,
 )
 
 if TYPE_CHECKING:
@@ -22,6 +26,10 @@ if TYPE_CHECKING:
     CountryAdminBase: TypeAlias = admin.ModelAdmin[Country]  # noqa: UP040
     StateAdminBase: TypeAlias = admin.ModelAdmin[State]  # noqa: UP040
     CityAdminBase: TypeAlias = admin.ModelAdmin[City]  # noqa: UP040
+    CaseTypeAdminBase: TypeAlias = admin.ModelAdmin[CaseType]  # noqa: UP040
+    DocumentTypeAdminBase: TypeAlias = admin.ModelAdmin[DocumentType]  # noqa: UP040
+    WorkflowTypeAdminBase: TypeAlias = admin.ModelAdmin[WorkflowType]  # noqa: UP040
+    StatusTypeAdminBase: TypeAlias = admin.ModelAdmin[StatusType]  # noqa: UP040
 else:
     ManufacturerAdminBase = admin.ModelAdmin
     CaliberAdminBase = admin.ModelAdmin
@@ -29,6 +37,10 @@ else:
     CountryAdminBase = admin.ModelAdmin
     StateAdminBase = admin.ModelAdmin
     CityAdminBase = admin.ModelAdmin
+    CaseTypeAdminBase = admin.ModelAdmin
+    DocumentTypeAdminBase = admin.ModelAdmin
+    WorkflowTypeAdminBase = admin.ModelAdmin
+    StatusTypeAdminBase = admin.ModelAdmin
 
 
 @admin.register(Manufacturer)
@@ -107,4 +119,44 @@ class CityAdmin(CityAdminBase):
         "state__name",
         "state__country__name",
     )
+    readonly_fields = ("id", "created_at", "updated_at")
+
+
+@admin.register(CaseType)
+class CaseTypeAdmin(CaseTypeAdminBase):
+    """Admin for case type reference data."""
+
+    list_display = ("name", "code", "is_system", "status", "created_at")
+    list_filter = ("status", "is_system")
+    search_fields = ("name", "code", "description")
+    readonly_fields = ("id", "created_at", "updated_at")
+
+
+@admin.register(DocumentType)
+class DocumentTypeAdmin(DocumentTypeAdminBase):
+    """Admin for document type reference data."""
+
+    list_display = ("name", "code", "is_system", "status", "created_at")
+    list_filter = ("status", "is_system")
+    search_fields = ("name", "code", "description")
+    readonly_fields = ("id", "created_at", "updated_at")
+
+
+@admin.register(WorkflowType)
+class WorkflowTypeAdmin(WorkflowTypeAdminBase):
+    """Admin for workflow type reference data."""
+
+    list_display = ("name", "code", "is_system", "status", "created_at")
+    list_filter = ("status", "is_system")
+    search_fields = ("name", "code", "description")
+    readonly_fields = ("id", "created_at", "updated_at")
+
+
+@admin.register(StatusType)
+class StatusTypeAdmin(StatusTypeAdminBase):
+    """Admin for status type reference data."""
+
+    list_display = ("name", "code", "is_system", "status", "created_at")
+    list_filter = ("status", "is_system")
+    search_fields = ("name", "code", "description")
     readonly_fields = ("id", "created_at", "updated_at")

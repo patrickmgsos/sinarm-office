@@ -8,11 +8,15 @@ from django.utils import timezone
 from apps.common.models import ArchivableModel
 from apps.reference_data.models import (
     Caliber,
+    CaseType,
     City,
     Country,
+    DocumentType,
     FirearmModel,
     Manufacturer,
     State,
+    StatusType,
+    WorkflowType,
 )
 
 
@@ -154,3 +158,107 @@ def archive_city(city: City) -> City:
     city.archived_at = timezone.now()
     city.save(update_fields=["status", "archived_at", "updated_at"])
     return city
+
+
+@transaction.atomic
+def create_case_type(
+    *,
+    name: str,
+    code: str,
+    description: str = "",
+    is_system: bool = False,
+) -> CaseType:
+    """Create a case type reference record without creating a Case."""
+    return CaseType.objects.create(
+        name=name,
+        code=code,
+        description=description,
+        is_system=is_system,
+    )
+
+
+@transaction.atomic
+def create_document_type(
+    *,
+    name: str,
+    code: str,
+    description: str = "",
+    is_system: bool = False,
+) -> DocumentType:
+    """Create a document type reference record without creating a Document."""
+    return DocumentType.objects.create(
+        name=name,
+        code=code,
+        description=description,
+        is_system=is_system,
+    )
+
+
+@transaction.atomic
+def create_workflow_type(
+    *,
+    name: str,
+    code: str,
+    description: str = "",
+    is_system: bool = False,
+) -> WorkflowType:
+    """Create a workflow type reference record without creating a Workflow."""
+    return WorkflowType.objects.create(
+        name=name,
+        code=code,
+        description=description,
+        is_system=is_system,
+    )
+
+
+@transaction.atomic
+def create_status_type(
+    *,
+    name: str,
+    code: str,
+    description: str = "",
+    is_system: bool = False,
+) -> StatusType:
+    """Create a status type reference record."""
+    return StatusType.objects.create(
+        name=name,
+        code=code,
+        description=description,
+        is_system=is_system,
+    )
+
+
+@transaction.atomic
+def archive_case_type(case_type: CaseType) -> CaseType:
+    """Archive a case type without deleting reference history."""
+    case_type.status = ArchivableModel.ArchiveStatus.ARCHIVED
+    case_type.archived_at = timezone.now()
+    case_type.save(update_fields=["status", "archived_at", "updated_at"])
+    return case_type
+
+
+@transaction.atomic
+def archive_document_type(document_type: DocumentType) -> DocumentType:
+    """Archive a document type without deleting reference history."""
+    document_type.status = ArchivableModel.ArchiveStatus.ARCHIVED
+    document_type.archived_at = timezone.now()
+    document_type.save(update_fields=["status", "archived_at", "updated_at"])
+    return document_type
+
+
+@transaction.atomic
+def archive_workflow_type(workflow_type: WorkflowType) -> WorkflowType:
+    """Archive a workflow type without deleting reference history."""
+    workflow_type.status = ArchivableModel.ArchiveStatus.ARCHIVED
+    workflow_type.archived_at = timezone.now()
+    workflow_type.save(update_fields=["status", "archived_at", "updated_at"])
+    return workflow_type
+
+
+@transaction.atomic
+def archive_status_type(status_type: StatusType) -> StatusType:
+    """Archive a status type without deleting reference history."""
+    status_type.status = ArchivableModel.ArchiveStatus.ARCHIVED
+    status_type.archived_at = timezone.now()
+    status_type.save(update_fields=["status", "archived_at", "updated_at"])
+    return status_type

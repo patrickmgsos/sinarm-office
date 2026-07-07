@@ -147,3 +147,52 @@ class City(BaseModel, ArchivableModel):
     def __str__(self) -> str:
         """Return city display name."""
         return f"{self.state.name} - {self.name}"
+
+
+class ReferenceTypeBase(BaseModel, ArchivableModel):
+    """Abstract base for simple named reference type catalogs."""
+
+    name = models.CharField(max_length=160, unique=True)
+    code = models.SlugField(max_length=80, unique=True)
+    description = models.TextField(blank=True)
+    is_system = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+        ordering = ["name"]
+
+    def __str__(self) -> str:
+        """Return reference type display name."""
+        return self.name
+
+
+class CaseType(ReferenceTypeBase):
+    """Case type reference catalog without creating Case entities."""
+
+    class Meta(ReferenceTypeBase.Meta):
+        verbose_name = "case type"
+        verbose_name_plural = "case types"
+
+
+class DocumentType(ReferenceTypeBase):
+    """Document type reference catalog without creating Document entities."""
+
+    class Meta(ReferenceTypeBase.Meta):
+        verbose_name = "document type"
+        verbose_name_plural = "document types"
+
+
+class WorkflowType(ReferenceTypeBase):
+    """Workflow type reference catalog without creating Workflow entities."""
+
+    class Meta(ReferenceTypeBase.Meta):
+        verbose_name = "workflow type"
+        verbose_name_plural = "workflow types"
+
+
+class StatusType(ReferenceTypeBase):
+    """Status type reference catalog."""
+
+    class Meta(ReferenceTypeBase.Meta):
+        verbose_name = "status type"
+        verbose_name_plural = "status types"
