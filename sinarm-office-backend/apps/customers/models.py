@@ -94,3 +94,42 @@ class CustomerAddress(BaseModel, ArchivableModel):
     def __str__(self) -> str:
         """Return address display label."""
         return f"{self.customer.name} - {self.street}"
+
+
+class CustomerContact(BaseModel, ArchivableModel):
+    """Contact channel owned by a customer aggregate."""
+
+    class ContactType(models.TextChoices):
+        PHONE = "phone", "Phone"
+        EMAIL = "email", "Email"
+        WHATSAPP = "whatsapp", "WhatsApp"
+
+    customer = models.ForeignKey(
+        Customer,
+        on_delete=models.CASCADE,
+        related_name="contacts",
+    )
+    contact_type = models.CharField(max_length=32, choices=ContactType.choices)
+    value = models.CharField(max_length=180)
+    label = models.CharField(max_length=80, blank=True)
+    notes = models.TextField(blank=True)
+    is_primary = models.BooleanField(default=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["customer", "contact_type", "value"],
+                name="ux_customer_contact_customer_type_value",
+            ),
+        ]
+        indexes = [
+            models.Index(fields=["customer", "contact_type"]),
+            models.Index(fields=["customer", "is_primary"]),
+        ]
+        ordering = ["customer__name", "-is_primary", "contact_type", "value"]
+        verbose_name = "customer contact"
+        verbose_name_plural = "customer contacts"
+
+    def __str__(self) -> str:
+        """Return contact display label."""
+        return f"{self.customer.name} - {self.value}"

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import uuid
 
-from apps.customers.models import Customer, CustomerAddress
+from apps.customers.models import Customer, CustomerAddress, CustomerContact
 from apps.reference_data.models import City, Country, State
 
 
@@ -85,5 +85,52 @@ class CustomerRepository:
         """Mark existing customer addresses as non-primary."""
         CustomerAddress.objects.filter(
             customer=customer,
+            is_primary=True,
+        ).update(is_primary=False)
+
+    def contact_exists(
+        self,
+        *,
+        customer: Customer,
+        contact_type: str,
+        value: str,
+    ) -> bool:
+        """Return whether a customer already has the contact value."""
+        return CustomerContact.objects.filter(
+            customer=customer,
+            contact_type=contact_type,
+            value=value,
+        ).exists()
+
+    def create_contact(
+        self,
+        *,
+        customer: Customer,
+        contact_type: str,
+        value: str,
+        label: str = "",
+        notes: str = "",
+        is_primary: bool = False,
+    ) -> CustomerContact:
+        """Persist a customer contact within the aggregate."""
+        return CustomerContact.objects.create(
+            customer=customer,
+            contact_type=contact_type,
+            value=value,
+            label=label,
+            notes=notes,
+            is_primary=is_primary,
+        )
+
+    def clear_primary_contacts(
+        self,
+        *,
+        customer: Customer,
+        contact_type: str,
+    ) -> None:
+        """Mark existing customer contacts for a type as non-primary."""
+        CustomerContact.objects.filter(
+            customer=customer,
+            contact_type=contact_type,
             is_primary=True,
         ).update(is_primary=False)

@@ -5,7 +5,7 @@ from __future__ import annotations
 from django.db.models import QuerySet
 
 from apps.common.models import ArchivableModel
-from apps.customers.models import Customer, CustomerAddress
+from apps.customers.models import Customer, CustomerAddress, CustomerContact
 
 
 def customers_active() -> QuerySet[Customer]:
@@ -29,3 +29,11 @@ def customer_addresses(*, customer: Customer) -> QuerySet[CustomerAddress]:
         customer=customer,
         status=ArchivableModel.ArchiveStatus.ACTIVE,
     ).order_by("-is_primary", "address_type", "street")
+
+
+def customer_contacts(*, customer: Customer) -> QuerySet[CustomerContact]:
+    """Return active contacts for a customer."""
+    return CustomerContact.objects.filter(
+        customer=customer,
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("-is_primary", "contact_type", "value")
