@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import uuid
+
 from apps.customers.models import Customer
 
 
@@ -36,3 +38,12 @@ class CustomerRepository:
             document_type=Customer.DocumentType.CPF,
             document_number=cpf,
         ).first()
+
+    def get_by_id(self, *, customer_id: uuid.UUID) -> Customer | None:
+        """Return a customer aggregate by UUID."""
+        return Customer.objects.filter(id=customer_id).first()
+
+    def save(self, *, customer: Customer, update_fields: list[str]) -> Customer:
+        """Persist changes to an existing customer aggregate."""
+        customer.save(update_fields=update_fields)
+        return customer
