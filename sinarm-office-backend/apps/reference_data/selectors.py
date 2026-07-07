@@ -7,7 +7,14 @@ import uuid
 from django.db.models import QuerySet
 
 from apps.common.models import ArchivableModel
-from apps.reference_data.models import Caliber, FirearmModel, Manufacturer
+from apps.reference_data.models import (
+    Caliber,
+    City,
+    Country,
+    FirearmModel,
+    Manufacturer,
+    State,
+)
 
 
 def manufacturers_active() -> QuerySet[Manufacturer]:
@@ -62,3 +69,39 @@ def firearm_models_for_caliber(
         queryset = queryset.filter(status=ArchivableModel.ArchiveStatus.ACTIVE)
 
     return queryset.order_by("manufacturer__name", "name")
+
+
+def countries_active() -> QuerySet[Country]:
+    """Return active countries ordered by name."""
+    return Country.objects.filter(
+        status=ArchivableModel.ArchiveStatus.ACTIVE,
+    ).order_by("name")
+
+
+def states_for_country(
+    *,
+    country_id: uuid.UUID,
+    active_only: bool = True,
+) -> QuerySet[State]:
+    """Return states for a country."""
+    queryset = State.objects.filter(country_id=country_id).select_related("country")
+    if active_only:
+        queryset = queryset.filter(status=ArchivableModel.ArchiveStatus.ACTIVE)
+
+    return queryset.order_by("name")
+
+
+def cities_for_state(
+    *,
+    state_id: uuid.UUID,
+    active_only: bool = True,
+) -> QuerySet[City]:
+    """Return cities for a state."""
+    queryset = City.objects.filter(state_id=state_id).select_related(
+        "state",
+        "state__country",
+    )
+    if active_only:
+        queryset = queryset.filter(status=ArchivableModel.ArchiveStatus.ACTIVE)
+
+    return queryset.order_by("name")
