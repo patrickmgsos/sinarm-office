@@ -58,6 +58,7 @@ LOCAL_APPS = [
     "apps.customers",
     "apps.firearms",
     "apps.cases",
+    "apps.documents",
     "apps.accounts",
     "apps.clientes",
     "apps.armas",

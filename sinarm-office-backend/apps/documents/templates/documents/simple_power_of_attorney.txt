@@ -1,0 +1,7 @@
+PROCURACAO SIMPLES
+
+Outorgante: {{ customer.name }}, CPF/CNPJ {{ customer.document_number }}.
+
+Pelo presente instrumento, nomeia procurador para representar seus interesses no procedimento administrativo relacionado ao SINARM.
+
+Data: {{ today }}

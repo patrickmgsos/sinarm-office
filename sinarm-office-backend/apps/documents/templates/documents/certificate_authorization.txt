@@ -1,0 +1,5 @@
+AUTORIZACAO PARA EMISSAO DE CERTIDOES
+
+Eu, {{ customer.name }}, CPF/CNPJ {{ customer.document_number }}, autorizo a solicitacao e emissao das certidoes necessarias para instrucao do procedimento junto aos orgaos competentes.
+
+Data: {{ today }}
