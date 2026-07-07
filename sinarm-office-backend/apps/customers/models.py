@@ -23,12 +23,17 @@ class Customer(BaseModel, ArchivableModel):
     kind = models.CharField(max_length=32, choices=CustomerKind.choices)
     document_type = models.CharField(max_length=16, choices=DocumentType.choices)
     document_number = models.CharField(max_length=14, unique=True, db_index=True)
+    rg_ie = models.CharField(max_length=32, blank=True)
+    phone = models.CharField(max_length=32, blank=True)
+    email = models.EmailField(blank=True)
+    address = models.TextField(blank=True)
     notes = models.TextField(blank=True)
 
     class Meta:
         indexes = [
             models.Index(fields=["document_type", "document_number"]),
             models.Index(fields=["status", "name"]),
+            models.Index(fields=["email"]),
         ]
         ordering = ["name"]
         verbose_name = "customer"

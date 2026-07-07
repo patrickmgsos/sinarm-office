@@ -18,6 +18,10 @@ class CustomerRepository:
         kind: str,
         document_type: str,
         document_number: str,
+        rg_ie: str = "",
+        phone: str = "",
+        email: str = "",
+        address: str = "",
         notes: str = "",
     ) -> Customer:
         """Persist a new customer aggregate root."""
@@ -26,6 +30,10 @@ class CustomerRepository:
             kind=kind,
             document_type=document_type,
             document_number=document_number,
+            rg_ie=rg_ie,
+            phone=phone,
+            email=email,
+            address=address,
             notes=notes,
         )
 

@@ -63,11 +63,13 @@ class CustomerAdmin(CustomerAdminBase):
         "kind",
         "document_type",
         "document_number",
+        "phone",
+        "email",
         "status",
         "created_at",
     )
     list_filter = ("status", "kind", "document_type")
-    search_fields = ("name", "document_number", "notes")
+    search_fields = ("name", "document_number", "rg_ie", "phone", "email", "notes")
     readonly_fields = ("id", "created_at", "updated_at")
     inlines = [CustomerAddressInline, CustomerContactInline]
 

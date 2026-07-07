@@ -50,6 +50,10 @@ class RegisterNewCustomerService:
         kind: str,
         document_type: str,
         document_number: str,
+        rg_ie: str = "",
+        phone: str = "",
+        email: str = "",
+        address: str = "",
         notes: str = "",
     ) -> RegisterNewCustomerResult:
         """Register a new customer."""
@@ -67,6 +71,10 @@ class RegisterNewCustomerService:
             kind=kind,
             document_type=document_type,
             document_number=normalized_document_number,
+            rg_ie=rg_ie.strip(),
+            phone=phone.strip(),
+            email=email.strip().lower(),
+            address=address.strip(),
             notes=notes,
         )
         event = CustomerRegistered(

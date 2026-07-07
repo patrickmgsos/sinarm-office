@@ -22,12 +22,20 @@ def test_register_new_individual_customer() -> None:
         kind=Customer.CustomerKind.INDIVIDUAL,
         document_type=Customer.DocumentType.CPF,
         document_number="123.456.789-01",
+        rg_ie="12.345.678-9",
+        phone="(11) 99999-0000",
+        email=" ADA@EXAMPLE.COM ",
+        address="Rua das Flores, 123",
         notes="First customer",
     )
 
     assert isinstance(result.customer.id, uuid.UUID)
     assert result.customer.name == "Ada Lovelace"
     assert result.customer.document_number == "12345678901"
+    assert result.customer.rg_ie == "12.345.678-9"
+    assert result.customer.phone == "(11) 99999-0000"
+    assert result.customer.email == "ada@example.com"
+    assert result.customer.address == "Rua das Flores, 123"
     assert result.customer.status == ArchivableModel.ArchiveStatus.ACTIVE
     assert isinstance(result.event, CustomerRegistered)
     assert result.event.customer_id == result.customer.id
