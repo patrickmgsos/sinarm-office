@@ -55,6 +55,7 @@ LOCAL_APPS = [
     "apps.configuration",
     "apps.notification",
     "apps.reference_data",
+    "apps.customers",
     "apps.accounts",
     "apps.clientes",
     "apps.armas",
